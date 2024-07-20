@@ -1,0 +1,34 @@
+from sorted_flavours import sorted_flavours
+
+
+sales_data = {}
+infile = open("icecream.txt","r")
+
+while 1 : 
+    line = infile.readline()
+    for line in infile :
+        key = line.split(":")[0]
+        value = line.split(":") [1:-1]
+        sales_data[key] = value
+    if not line:
+        break
+print (sales_data)
+
+def hasil penjualan (sales_data):
+    print("Sales Report:")
+    print("{:<15} {:<15} {:<15}".format("Flavour", "Store", "Sales"))
+    print("-" * 45)
+
+    # Print sales for each flavour in each store
+    for flavour in sorted_flavours:
+        total_flavour_sales = sum(sales_data[flavour].values())
+        print(f"Total sales for {flavour}: {total_flavour_sales}")
+
+        for store, sales in sales_data[flavour].items():
+            print("{:<15} {:<15} {:<15}".format(flavour, store, sales))
+
+    print("-" * 45)
+
+    # Print sum of sales for each flavour
+    print("Sum of sales for each flavour:")
+    for flavour in sorted_flavours:
