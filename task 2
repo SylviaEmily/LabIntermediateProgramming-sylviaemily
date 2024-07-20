@@ -1,0 +1,23 @@
+import re
+
+with open('alice.txt', 'r', encoding='utf-8') as file:
+    alice_text = file.read()
+
+with open('words.txt', 'r', encoding='utf-8') as file:
+    correct_words = {word.strip().lower() for word in file.readlines()}
+
+words = re.findall(r'\b\w+\b', alice_text.lower())
+total_words = len(words)
+unique_words = len(set(words))
+
+print(f"Total kata dalam teks Alice: {total_words}")
+print(f"Kata unik dalam teks Alice: {unique_words}")
+
+misspelled_words = {word for word in set(words) if word not in correct_words}
+
+if misspelled_words:
+    print("\nKata-kata yang salah eja dalam teks Alice:")
+    for word in sorted(misspelled_words):
+        print(word)
+else:
+    print("\nTidak ada kata yang salah eja dalam teks Alice.")
