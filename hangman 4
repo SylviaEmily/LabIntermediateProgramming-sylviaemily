@@ -1,0 +1,69 @@
+import random 
+
+score = 0
+
+def select_word() :
+  words = ["ayam", "ikan" , "kelinci", "hamster", "sapi", "jerapah", "burung", "kucing", "kambing", "kuda"]
+  secretword = words[random.randint(0,len(words)-1)]
+  words.remove(secretword)
+  return secretword
+  
+def start_game() :
+  global score
+  word = select_word()
+  chances = 6 
+  guessed_letters = []
+  len_word = len(word) * "_"
+  
+  print ("welcome to hangman game")
+  print ("let's gourr")
+
+  while chances > 0 :
+    guess = input ("enter a letter : ")
+    
+    if len(guess) != 1 or not guess.isalpha():
+      print ("please enter a letter")
+      continue
+    elif guess.lower() in guessed_letters :
+      print ("you already guessed that letter")
+      continue
+    else :
+      guessed_letters.append(guess.lower()) 
+      if guess.lower() in word.lower():
+        display = ""
+        for i in range(len(word)):
+          if word[i] == guess:
+            display += guess
+          else:
+            display += len_word[i]
+        len_word = display
+        print(len_word)
+        print("congrast, your letter is correct")
+      elif guess.lower() not in word.lower() :
+        chances -=1
+        print ("try again. you have {}chances left".format(chances))
+
+    if "_" not in len_word :
+      print ("congratulations!you guessed the word", word)
+      score += 1
+      print ("your current score is :", score)
+      break
+  
+  if chances == 0 :
+    score  != 1
+    print ("your current score is : ", score)
+    print("sorry you lose. your word is",word)
+
+def play_again():
+  while 1 :
+    play = input("do you want to to play again? (yes/no):").lower()
+    if play == 'yes' :
+      start_game()
+    elif play == 'no' :
+      print ("thanks for playing")
+      break
+    else :
+      print("please input yes or no")
+
+start_game()
+play_again()
